@@ -1,25 +1,125 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { RiSearch2Line } from "react-icons/ri";
+import clouds from "./images/clouds.svg";
+import sunny from "./images/sunny.svg";
+import {
+  Blur,
+  DateS,
+  Flex,
+  FlexColumn,
+  Image,
+  Input,
+  Main,
+  Row,
+  Section,
+  Temp,
+  Time,
+  Title,
+} from "./styledComponents";
 
-function App() {
+const api = {
+  key: "816f698aa8247668420fa9b43dfd7871",
+  base: "https://api.openweathermap.org/data/2.5/",
+};
+
+const App = () => {
+  const [query, setQuery] = useState("");
+  const [weather, setWeather] = useState({});
+
+  const search = (e) => {
+    if (e.key === "Enter") {
+      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+        .then((res) => res.json())
+        .then((result) => {
+          setWeather(result);
+          setQuery("");
+          console.log(result);
+        });
+    }
+  };
+
+  const dateBulder = (d) => {
+    var months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+
+    return `${day} ${date} ${month} ${year}`;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <Section>
+        <Flex>
+          <Input
+            placeholder="Search"
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyPress={search}
+            value={query}
+          />
+          <RiSearch2Line
+            style={{ transform: "translateX(-23px)", color: "#A6A6A6" }}
+          />
+        </Flex>
+        {typeof weather.main != "undefined" ? (
+          <>
+            <FlexColumn>
+              <Title>
+                {weather.name}, {weather.sys.country}
+              </Title>
+              <Row>
+                 <Image src={typeof weather.main != "undefined" ? (
+                  weather.main.temp > 16 ? (
+                    sunny
+                  ) : (
+                    clouds
+                  )
+                ) : null} />
+                <Temp>{Math.round(weather.main.temp)}°c</Temp>
+              </Row>
+            </FlexColumn>
+            <Blur>
+              <Row>
+                <Time>
+                  {new Date().getHours().toLocaleString() +
+                    ":" +
+                    new Date().getMinutes().toLocaleString()}
+                </Time>
+                <p>AM</p>
+              </Row>
+              <DateS>{dateBulder(new Date())}</DateS>
+            </Blur>
+          </>
+        ) : (
+          ""
+        )}
+      </Section>
+    </Main>
   );
-}
+};
 
 export default App;
