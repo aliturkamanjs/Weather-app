@@ -115,7 +115,6 @@ const App = () => {
                     ":" +
                     new Date().getMinutes().toLocaleString()}
                 </Time>
-                <p>AM</p>
               </Row>
               <DateS>{dateBulder(new Date())}</DateS>
             </Blur>
