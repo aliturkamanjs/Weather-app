@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RiSearch2Line } from "react-icons/ri";
 import clouds from "./images/clouds.svg";
 import sunny from "./images/sunny.svg";
+import north from "./images/north.svg";
 import {
   Blur,
   DateS,
@@ -70,6 +71,18 @@ const App = () => {
     return `${day} ${date} ${month} ${year}`;
   };
 
+  const renderImage = () => {
+    if (typeof weather.main !== "undefined") {
+      if (weather.main.temp > 16) {
+        return <Image src={sunny} />;
+      } else if (weather.main.temp <= 0) {
+        return <Image src={north} />;
+      } else if (weather.main.temp < 16) {
+        return <Image src={clouds} />;
+      }
+    }
+  };
+
   return (
     <Main>
       <Section>
@@ -91,13 +104,7 @@ const App = () => {
                 {weather.name}, {weather.sys.country}
               </Title>
               <Row>
-                 <Image src={typeof weather.main != "undefined" ? (
-                  weather.main.temp > 16 ? (
-                    sunny
-                  ) : (
-                    clouds
-                  )
-                ) : null} />
+                {renderImage()}
                 <Temp>{Math.round(weather.main.temp)}°c</Temp>
               </Row>
             </FlexColumn>
