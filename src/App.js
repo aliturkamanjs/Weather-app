@@ -3,6 +3,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import clouds from "./images/clouds.svg";
 import sunny from "./images/sunny.svg";
 import north from "./images/north.svg";
+
 import {
   Blur,
   DateS,
@@ -18,10 +19,13 @@ import {
   Title,
 } from "./styledComponents";
 
+
 const api = {
   key: "816f698aa8247668420fa9b43dfd7871",
   base: "https://api.openweathermap.org/data/2.5/",
 };
+
+
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -29,6 +33,7 @@ const App = () => {
 
   const search = (e) => {
     if (e.key === "Enter") {
+      
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then((res) => res.json())
         .then((result) => {
@@ -39,6 +44,7 @@ const App = () => {
   };
 
   const dateBulder = (d) => {
+
     var months = [
       "January",
       "February",
@@ -53,6 +59,8 @@ const App = () => {
       "November",
       "December",
     ];
+
+
     let days = [
       "Sunday",
       "Monday",
@@ -69,9 +77,11 @@ const App = () => {
     let year = d.getFullYear();
 
     return `${day} ${date} ${month} ${year}`;
+
   };
 
   const renderImage = () => {
+
     if (typeof weather.main !== "undefined") {
       if (weather.main.temp > 16) {
         return <Image src={sunny} />;
@@ -81,9 +91,11 @@ const App = () => {
         return <Image src={clouds} />;
       }
     }
+
   };
 
   return (
+
     <Main>
       <Section>
         <Flex>
@@ -97,6 +109,7 @@ const App = () => {
             style={{ transform: "translateX(-23px)", color: "#A6A6A6" }}
           />
         </Flex>
+
         {typeof weather.main != "undefined" ? (
           <>
             <FlexColumn>
@@ -119,6 +132,7 @@ const App = () => {
               <DateS>{dateBulder(new Date())}</DateS>
             </Blur>
           </>
+
         ) : (
           ""
         )}
