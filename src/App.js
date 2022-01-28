@@ -18,6 +18,7 @@ import {
   Time,
   Title,
 } from "./styledComponents";
+import axios from "axios";
 
 const api = {
   key: "816f698aa8247668420fa9b43dfd7871",
@@ -28,15 +29,15 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
+  console.log(weather);
+
   const search = async (e) => {
     if (e.key === "Enter") {
       try {
-        await fetch(
-          `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`
-        )
-          .then((res) => res.json())
-          .then((result) => {
-            setWeather(result);
+        await axios
+          .get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+          .then((res) => {
+            setWeather(res.data);
             setQuery("");
           });
       } catch (error) {
