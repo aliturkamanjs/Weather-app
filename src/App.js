@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { RiSearch2Line } from "react-icons/ri";
 import clouds from "./images/clouds.svg";
 import sunny from "./images/sunny.svg";
@@ -19,32 +19,33 @@ import {
   Title,
 } from "./styledComponents";
 
-
 const api = {
   key: "816f698aa8247668420fa9b43dfd7871",
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
-
-
 const App = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
-  const search = (e) => {
+  const search = async (e) => {
     if (e.key === "Enter") {
-      
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-        .then((res) => res.json())
-        .then((result) => {
-          setWeather(result);
-          setQuery("");
-        });
+      try {
+        await fetch(
+          `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            setWeather(result);
+            setQuery("");
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const dateBulder = (d) => {
-
     var months = [
       "January",
       "February",
@@ -59,8 +60,6 @@ const App = () => {
       "November",
       "December",
     ];
-
-
     let days = [
       "Sunday",
       "Monday",
@@ -75,13 +74,10 @@ const App = () => {
     let date = d.getDate();
     let month = months[d.getMonth()];
     let year = d.getFullYear();
-
     return `${day} ${date} ${month} ${year}`;
-
   };
 
   const renderImage = () => {
-
     if (typeof weather.main !== "undefined") {
       if (weather.main.temp > 16) {
         return <Image src={sunny} />;
@@ -91,11 +87,9 @@ const App = () => {
         return <Image src={clouds} />;
       }
     }
-
   };
 
   return (
-
     <Main>
       <Section>
         <Flex>
@@ -110,8 +104,8 @@ const App = () => {
           />
         </Flex>
 
-        {typeof weather.main != "undefined" ? (
-          <>
+        {typeof weather.main != "undefined" && (
+          <React.Fragment>
             <FlexColumn>
               <Title>
                 {weather.name}, {weather.sys.country}
@@ -131,10 +125,7 @@ const App = () => {
               </Row>
               <DateS>{dateBulder(new Date())}</DateS>
             </Blur>
-          </>
-
-        ) : (
-          ""
+          </React.Fragment>
         )}
       </Section>
     </Main>
