@@ -23,15 +23,18 @@ import axios from "axios";
 const api = {
   key: "816f698aa8247668420fa9b43dfd7871",
   base: "https://api.openweathermap.org/data/2.5/",
+  
 };
 
 const App = () => {
+
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
   console.log(weather);
 
   const search = async (e) => {
+
     if (e.key === "Enter") {
       try {
         await axios
@@ -62,6 +65,7 @@ const App = () => {
       "December",
     ];
     let days = [
+
       "Sunday",
       "Monday",
       "Tuesday",
@@ -79,6 +83,7 @@ const App = () => {
   };
 
   const renderImage = () => {
+
     if (typeof weather.main !== "undefined") {
       if (weather.main.temp > 16) {
         return <Image src={sunny} />;

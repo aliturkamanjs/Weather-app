@@ -37,11 +37,11 @@ export const Input = styled.input`
   outline: none;
   border-radius: 11px;
   padding: 8px;
+  color: #a6a6a6;
+  transition: 0.2s ease-in-out;
   width: 100%;
   padding-left: 10px;
   background: #ffffffc5;
-  color: #a6a6a6;
-  transition: 0.2s ease-in-out;
   :focus {
     box-shadow: 0px 6px 9px #b4b4b4;
   }
@@ -68,10 +68,10 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.h1`
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-top: 55px;
   font-size: 55px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #3d3d3d;
   @media (max-width: 768px) and (min-width: 258px) {
     font-size: 40px;
@@ -81,17 +81,17 @@ export const Title = styled.h1`
 export const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Temp = styled.h3`
   color: #448fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    margin-left: 10px;
   font-size: 49px;
   font-weight: 400;
-  margin-left: 10px;
   @media (max-width: 768px) and (min-width: 258px) {
     font-size: 40px;
   }
@@ -103,8 +103,8 @@ export const Image = styled.img`
 
 export const Time = styled.h1`
   font-size: 46px;
-  color: #3d3d3d;
   font-family: "Roboto", sans-serif;
+  color: #3d3d3d;
 `;
 
 export const Row = styled.div`
@@ -120,11 +120,11 @@ export const Blur = styled.div`
   backdrop-filter: blur(16px);
   border-radius: 20px;
   margin: auto;
-  margin-top: 50px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-top: 50px;
+  display: flex;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   @media (max-width: 768px) and (min-width: 258px) {
